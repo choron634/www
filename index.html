@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Recommender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #results {
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+        .brand {
+            background-color: #f1f1f1;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Brand Recommender</h1>
+    <input type="text" id="search" placeholder="Enter your favorite brands (comma separated)">
+    <button onclick="getRecommendations()">Search</button>
+
+    <div id="results"></div>
+
+    <script>
+        const dummyData = [
+            {
+                name: "Brand 1",
+                reason: "This brand is recommended because...",
+                priceRange: "Mid-range",
+                website: "https://brand1.com",
+                instagram: "https://instagram.com/brand1"
+            },
+            // ... more brands
+        ];
+
+        async function getRecommendations() {
+            const searchInput = document.getElementById("search").value;
+            const brands = searchInput.split(",").map(brand => brand.trim());
+
+            // Call ChatGPT API with brands as input
+            // const recommendations = await callChatGPTAPI(brands);
+
+            // Use dummy data for example purposes
+            const recommendations = dummyData;
+
+            displayResults(recommendations);
+        }
+
+        function displayResults(recommendations) {
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "";
+
+            recommendations.forEach(brand => {
+                const brandDiv = document.createElement("div");
+                brandDiv.className = "brand";
+                brandDiv.innerHTML = `
+                    <h2>${brand.name}</h2>
+                    <p><strong>Reason:</strong> ${brand.reason}</p>
+                    <p><strong>Price Range:</strong> ${brand.priceRange}</p>
+                    <p><strong>Website:</strong> <a href="${brand.website}" target="_blank">${brand.website}</a></p>
+                    <p><strong>Instagram:</strong> <a href="${brand.instagram}" target="_blank">${brand.instagram}</a></p>
+                `;
+                resultsDiv.appendChild(brandDiv);
+            });
+        }
+    // Add this function to call ChatGPT API
+    /*
+    async function callChatGPTAPI(brands) {
+        const prompt = `Based on the user's favorite brands: ${brands.join(', ')}, recommend 10 similar brands with their website, Instagram link, reason for recommendation, and price range.`;
+
+        // Replace with your API key and endpoint
+        const apiKey = "your_api_key";
+        const endpoint = "your_api_endpoint";
+
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: "text-davinci-002",
+                prompt: prompt,
+                max_tokens: 150,
+                n: 1,
+                stop: null,
+                temperature: 0.5,
+                top_p: 1
+            })
+        };
+
+        const response = await fetch(endpoint, requestOptions);
+        const data = await response.json();
+
+        // Process the data to extract the JSON recommendations
+        // (Depends on the structure of the response)
+
+        return recommendations;
+    }
+    */
+</script>
+</body>
+</html>
