@@ -72,13 +72,14 @@
             const response = await fetch(endpoint, requestOptions);
             const data = await response.json();
 
+            console.log(data);
             // Process the data to extract the JSON recommendations
             // (Depends on the structure of the response)
 
-            const responseText = data.choices[0].text.trim();
-            const recommendations = JSON.parse(responseText);
-            console.log(recommendations);
-            return recommendations;
+            //const responseText = data.choices[0].text.trim();
+            //const recommendations = JSON.parse(responseText);
+            
+            return data;
          }
         const dummyData = [
             {
