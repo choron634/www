@@ -65,12 +65,7 @@
                 },
                 body: JSON.stringify({
                     model: "gpt-3.5-turbo",
-                    prompt: prompt,
-                    max_tokens: 500,
-                    n: 1,
-                    stop: null,
-                    temperature: 0.5,
-                    top_p: 1
+                    message:  {"role": "user", "content": $prompt}
                 })
             };
 
