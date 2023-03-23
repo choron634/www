@@ -50,6 +50,38 @@
     <div id="results"></div>
 
     <script>
+        async function callChatGPTAPI(brands) {
+            const prompt = `Based on the user's favorite brands: ${brands.join(', ')}, recommend 10 similar brands with their website, Instagram link, reason for recommendation, and price range.`;
+
+            // Replace with your API key and endpoint
+            const apiKey = "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";
+            const endpoint = "https://api.openai.com/v1/engines/davinci-codex/completions";
+
+            const requestOptions = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo",
+                    prompt: prompt,
+                    max_tokens: 500,
+                    n: 1,
+                    stop: null,
+                    temperature: 0.5,
+                    top_p: 1
+                })
+            };
+
+            const response = await fetch(endpoint, requestOptions);
+            const data = await response.json();
+
+            // Process the data to extract the JSON recommendations
+            // (Depends on the structure of the response)
+
+            return recommendations;
+         }
         const dummyData = [
             {
                 name: "Brand 1",
@@ -91,41 +123,7 @@
                 resultsDiv.appendChild(brandDiv);
             });
         }
-    // Add this function to call ChatGPT API
-    /*
-    async function callChatGPTAPI(brands) {
-        const prompt = `Based on the user's favorite brands: ${brands.join(', ')}, recommend 10 similar brands with their website, Instagram link, reason for recommendation, and price range.`;
 
-        // Replace with your API key and endpoint
-        const apiKey = "your_api_key";
-        const endpoint = "your_api_endpoint";
-
-        const requestOptions = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`
-            },
-            body: JSON.stringify({
-                model: "text-davinci-002",
-                prompt: prompt,
-                max_tokens: 150,
-                n: 1,
-                stop: null,
-                temperature: 0.5,
-                top_p: 1
-            })
-        };
-
-        const response = await fetch(endpoint, requestOptions);
-        const data = await response.json();
-
-        // Process the data to extract the JSON recommendations
-        // (Depends on the structure of the response)
-
-        return recommendations;
-    }
-    */
 </script>
 </body>
 </html>
