@@ -54,8 +54,8 @@
             const prompt = `Based on the user's favorite brands: ${brands.join(', ')}, recommend 10 similar brands with their website, Instagram link, reason for recommendation, and price range.`;
 
             // Replace with your API key and endpoint
-            const apiKey = "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";
-            const endpoint = "https://api.openai.com/v1/completions";
+            const apiKey = "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";
+            const endpoint = "https://api.openai.com/v1/chat/completions";
 
             const requestOptions = {
                 method: "POST",
@@ -80,8 +80,10 @@
             // Process the data to extract the JSON recommendations
             // (Depends on the structure of the response)
 
-            console.log(data);
-            return data;
+            const responseText = data.choices[0].text.trim();
+            const recommendations = JSON.parse(responseText);
+            console.log(recommendations);
+            return recommendations;
          }
         const dummyData = [
             {
