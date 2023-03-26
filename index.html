@@ -54,7 +54,7 @@
             const prompt = `Based on the user's favorite brands: ${brands.join(', ')}, recommend 10 similar brands with their website, Instagram link, reason for recommendation, and price range.`;
 
             // Replace with your API key and endpoint
-            const apiKey = "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";
+            const apiKey = process.env.CHATGPT_API_KEY;
             const endpoint = "https://api.openai.com/v1/chat/completions";
 
             const requestOptions = {
